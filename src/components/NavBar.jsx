@@ -31,27 +31,27 @@ const NavBar = () => {
               <NavLink className="nav-link" aria-current="page" to="/">
                 Home
               </NavLink>
-            </li>
-            <li className="nav-item">
+             </li>
+             <li className="nav-item">
               <NavLink className="nav-link" to="/About">
                 Menus
               </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/Menus">
+             </li>
+             <li className="nav-item">
+              <NavLink className="nav-link" to="/Cliente">
                 Clientes
               </NavLink>
-            </li>
-            <li className="nav-item">
-              <NavLink className="nav-link" to="/Customers">
+             </li>
+             <li className="nav-item">
+              <NavLink className="nav-link" to="/Login">
                 Login
               </NavLink>
-            </li>
-            <li className="nav-item dropdown">
+             </li>
+             <li className="nav-item dropdown">
               
-            </li>
-            <li className="nav-item">
-            </li>
+             </li>
+             <li className="nav-item">
+             </li>
           </ul>
           
         </div>

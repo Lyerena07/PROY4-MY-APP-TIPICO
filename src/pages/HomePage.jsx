@@ -1,35 +1,43 @@
 import "../css/home-page-styles.css"
 import React from "react";
 import { NavLink } from "react-router-dom"
-import img from "../assets/Imagenes/sombrero.jpg"
+import img from "../assets/Imagenes/Tipico.png"
 
 const imgInicial= "/sombrero.jpg";
 const HomePage = () => {
 
+  
   return (
     <>
     <header className="row-col">
+      
       <h1 className="Tituloh1"> ¡Al Paladar Costeño!</h1>
     </header>
     <img className="imgInicial" src={img} alt="LogoEmpresa"/>
     <main className="row">
       <article className="col">
+        
      <h4 className="Textoh4 col-12 col-lg-6">
           Llevamos la mejor conbinacion costeña a tu mesa.</h4>
         <h4 className="Textoh4 col-12 col-lg-6">
           Nuesta meta, es satisfacer tu paladar,
           !probando los sabores tradicionales de la costa¡ 
           Atrevete y deleitate con nuestros sabores explosivos.</h4> 
-          <h2 className="ofrecemos col-12">TE OFRECEMOS:</h2> 
-      </article>
+          </article>
     </main>
 
 <div>
   <hr />
+  
   <div className="row">
   </div>
   <div className="col">
-    <h4 className="descripcionh4 col-12 col-lg-6">Un Espacio tipico, con entradas deliciosas para recordar tus raices.</h4>
+  <h2 className="ofrecemos col-12">TE OFRECEMOS:</h2> 
+    <h4 className="descripcionh4 col-12 col-lg-6">Monteria Cordoba, esta hecha de recuerdos, Mi abuela lo primero que me enseño fue el amor por la cocina,
+    por eso amo tanto los sabores autoctonos de cada plato que he conocido y probado, por mi paladar sola hay, 
+    recuerdos de los sabores mas representativos en mi infancia, como los dulces tipicos de nustras regiones. 
+    hoy en Tipico, le hacemos un homenaje a todas esas familias que consigen sus sustentos diarios,
+     a travez de la tradicion que nos dejaron nuestros ancestros.   </h4>
   </div>
 
   <div className="row-col">

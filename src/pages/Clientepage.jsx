@@ -2,7 +2,7 @@
 const ClientePage = () => {
   return (
       <div>
-          Pagina de Cliente
+          Bienvenido
       </div>
   )
 };
