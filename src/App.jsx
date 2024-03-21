@@ -3,11 +3,12 @@ import AppRouter from "./router/AppRouter";
 import  {useState} from 'react'
 
 // importando los modulos de firebase
-import  appFirebase from '../src/credenciales'
+import  appFirebase from './firebase'
 import {getAuth, onAuthStateChanged} from '../node_modules/firebase/auth'
 const auth = getAuth (appFirebase)
 
 import  {useState} from 'react'
+import Cuenta from "./pages/Cuenta";
 
 const AppUsuario =() =>{
 
@@ -24,7 +25,7 @@ const AppUsuario =() =>{
 
   return(
     <div>
-      {usuario ? <Cliente correoUsuario = {usuario.email} /> :<Login/>}
+      {usuario ? <Cuenta correoUsuario = {usuario.email} /> :<Login/>}
     </div>
     )
     

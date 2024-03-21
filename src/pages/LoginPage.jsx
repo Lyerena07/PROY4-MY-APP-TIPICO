@@ -3,7 +3,7 @@ import "../css/LoginCompStyles.css"
 import Imagen from '..//assets/Imagenes/imglogin.png'
 import ImagenProfile from '..//assets/Imagenes/imgProfile1.png'
 
-import appFirebase from '../credenciales'
+import appFirebase from '../firebase' 
 import {getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword} from 'firebase/auth'
 const auth = getAuth (appFirebase)
 
@@ -15,8 +15,8 @@ const LoginPage = () => {
 const functAutenticacion = async (e) =>{
 e.preventDefault();
 const correo = e.target.email.value;
-const contraseña =e.target.password.value;
-console.log(correo);
+const contraseña = e.target.password.value;
+//console.log(correo);
 
 if (registrando){
   await createUserWithEmailAndPassword(auth, correo, contraseña)
@@ -33,8 +33,8 @@ else{
 
     {/*columna mas pequeña*/}
   <div className="col-md-4">
-    <div className="padre">
-      <div className="card card-body shadow-lg">
+    <div className="padre" >
+      <div className="card card-body shadow-lg " >
       <img src= {ImagenProfile} alt="" className="estilo-profile"></img>
      <form onSubmit={functAutenticacion}>
 <input type="text" placeholder='Ingresar Email' className='cajatexto' id='email' />

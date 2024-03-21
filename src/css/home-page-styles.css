@@ -1,28 +1,37 @@
 .imgInicial{
     width: 400px;
     height: 400px;
-    text-align: left;
-    line-height: 3.5;
-   }
-
-
-   .main{
-    text-align: right;
+   line-height: 3.5;
    }
 
 .Tituloh1 {
     color: lightslategray;
     font-size: 4.7vh;
-    text-align: right;
-    line-height: 3.5;
+   
 }
 
-.Textoh4{
+.Titutloh2{
     color: lightslategray;
     font-size: 2.7vh;
-    text-align: right;
-    line-height: 1.5;
- 
+   
+}
+
+.Tituloh3{
+    color: lightslategray;
+    font-size: 2.7vh;
+}
+
+.Tituloh4{
+    color: lightslategray;
+    font-size: 4.7vh;
+}
+
+
+.contenedorTitulo {
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
 }
 
 .ofrecemos {
@@ -38,6 +47,9 @@ color: lightslategray;
 font-size: 2.7vh;
 text-align: justify;
 
+}
 
-
+.carousel-inner img {
+    width: 300%;
+    max-height: 350px;
 }
