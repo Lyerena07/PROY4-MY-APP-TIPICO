@@ -1,10 +1,10 @@
 import { useState } from "react";
-
+import {db} from "../firebase";
+import{collection,addDoc, getDocs,doc,getDoc,updateDoc,deleteDoc} from "firebase/firestore";
 
 const ClientePage = () => {
-
    // 1. configuramos los hooks 
-  const [DatosReserva, setDatosReserva] = useState('');
+    const [fechaReserva, setFechaReserva] = useState('');
     const [TiempoReserva, setTiempoReserva] = useState('');
     const [nInvitados, setnInvitados] = useState(1);
     const [nombre, setNombre] = useState('');
@@ -12,21 +12,61 @@ const ClientePage = () => {
     const [telefono, setTelefono] = useState('');
 
 
-// 2. eventos para el envío del formulario
-const enviarFormulario = async (event) => {
-  event.preventDefault();
-
-  const reservacion = {
-      nombre,
-      correoElectronico,
-      telefono,
-      fecha: TiempoReserva,
-      hora: DatosReserva,
+  //console.log(reservas);
+  const enviarFormulario = async (event) => {
+    event.preventDefault();
+  //const crearReservacion = async ()=>{
+    const reservacion = {
+      nombre:nombre,
+      correoElectronico:correoElectronico,
+      telefono:telefono,
+      fecha:fechaReserva,
+      hora: TiempoReserva,
       Npersonas: nInvitados,  
   };
-  const resultado = await crearReservas(reservacion);
+
+   const resultado= await crearReservacion(reservacion);
+  
+   if(resultado.success){
+    alert("Reservacion creada exitosmente");
+    setFechaReserva('');
+    setNombre('');
+    setCorreoElectronico('');
+    setTiempoReserva('');
+    setnInvitados('');
+    setTelefono('');
+  }else{
+    alert(resultado.message);
+  }
+ 
+  };
+  const crearReservacion = async(reservacion)=>{
+  const tabla = collection(db,"Reservacion");
+   await addDoc(tabla,reservacion);
+  };
+
+  const obtenerReservacion = async () => {
+    const resp = await getDocs(collection(db, "Reservacion"));
+    const reservas = resp.docs.map((reserva) => {
+      return {
+        id: reserva.id,
+        ...reserva.data(),
+      };
+    });
+
+    console.log(reservas);
 };
 
+/*const obtenerReserva = async () =>{
+const documento = doc(db,"Reservacion", "id");
+const resp = await getDoc(documento);
+const reserva = {
+
+id: resp.id,
+...resp.data(),
+}
+console.log(reserva);
+};*/
   return (
     
       <>
@@ -43,7 +83,7 @@ const enviarFormulario = async (event) => {
             <h4 style={{ color: 'var(--color3)'}}>Realiza tu Reservación Aquí</h4>
             <div className="col">
 
-          <form className="mt-3" >
+          <form className="mt-3" onSubmit={enviarFormulario}>
           <div className="mb-3"> <label htmlFor="nombre" className="form-label" style={{ color: 'var(--color2)' }}>Nombre</label>
             <input type="text" className="form-control"
              id="nombre"
@@ -52,10 +92,7 @@ const enviarFormulario = async (event) => {
              required
              pattern="[A-Za-z\s]{3,}" // Description del nombre
              title="El nombre debe tener minimo 5 letras. No aplican números y caracteres especiales."
-          
             />
-            
-            
             <div className="mb-3">
                             <label htmlFor="correoElectronico" className="form-label" style={{ color: 'var(--color2)' }}>Correo Electrónico</label>
                             <input type="email"  className="form-control"
@@ -63,12 +100,9 @@ const enviarFormulario = async (event) => {
                             value={correoElectronico}
                             onChange={e => setCorreoElectronico(e.target.value)}
                             required
-                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
-                            title="introduce una dirección de correo válida."
-                            
-                            
-                            />
-                            
+                            pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{0,}$"
+                            title="introduce una dirección de correo válida."      
+                            />            
             </div>  
                      <div className="mb-3">
                             <label htmlFor="Telefono" className="form-label" style={{ color: 'var(--color2)' }}>Telefono</label>
@@ -80,8 +114,6 @@ const enviarFormulario = async (event) => {
                             pattern="[0-9]{10}"
                             title="El número de teléfono debe tener 10 dígitos numéricos."
                             />
-                        
-
                       <div className="mb-3">
                             <label htmlFor="TiempoReserva" className="form-label" style={{ color: 'var(--color2)' }}>Hora</label>
                             <input  type="time"
@@ -98,10 +130,10 @@ const enviarFormulario = async (event) => {
                   </div>   
 
                   <div className="mb-3">
-                            <label htmlFor="DatosReserva" className="form-label" style={{ color: 'var(--color2)' }}>Fecha</label>
-                            <input type="date"  className="form-control"  id="DatosReserva"
-                                value={DatosReserva}
-                                onChange={e => setDatosReserva(e.target.value)}
+                            <label htmlFor="FechaReserva" className="form-label" style={{ color: 'var(--color2)' }}>Fecha</label>
+                            <input type="date"  className="form-control"  id="FechaReserva"
+                                value={fechaReserva}
+                                onChange={e => setFechaReserva(e.target.value)}
                                 min="10:00"
                                 max="20:00"
                                 required 
@@ -125,9 +157,8 @@ const enviarFormulario = async (event) => {
              </div>
 
              <div className='btnform'>
-              <button type="submit" className="btn botonReservacion">Enviar Reservación</button>
+              <button type="submit" className="btn botonReservacion" >Enviar Reservación</button>
               </div>
-
               <div className="row-col">
           <div className="text-start">
                  <h4 style={{ color: 'var(--color3)'}}>Tiempos de Reservación:</h4>
@@ -140,10 +171,9 @@ const enviarFormulario = async (event) => {
                         - Sábados y Domingos: 12:00 PM - 11:00 PM
                     </p>
                 </div>
-                
             </div>
           </form>   
-</div>
+        </div>
       </>
   )
 };
