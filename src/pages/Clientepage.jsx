@@ -25,10 +25,10 @@ const ClientePage = () => {
       Npersonas: nInvitados,  
   };
 
-   const resultado= await crearReservacion(reservacion);
-  
+   const resultado = await crearReservacion(reservacion);
+  console.log("resp:",resultado);
    if(resultado.success){
-    alert("Reservacion creada exitosmente");
+    alert("Reservacion creada exitosamente");
     setFechaReserva('');
     setNombre('');
     setCorreoElectronico('');
@@ -41,8 +41,21 @@ const ClientePage = () => {
  
   };
   const crearReservacion = async(reservacion)=>{
-  const tabla = collection(db,"Reservacion");
-   await addDoc(tabla,reservacion);
+    try {
+      const tabla = collection(db,"Reservacion");
+      await addDoc(tabla,reservacion);
+      return {
+       success: true,
+       message: 'Reservación creada con éxito.'
+      };
+    } catch (error) {
+      console.error('Error al crear la reservación:', error);
+      return {
+        success: false,
+        message: 'Hubo un problema al crear la reservación. Inténtalo de nuevo más tarde'
+       };
+    }
+
   };
 
   const obtenerReservacion = async () => {
